@@ -1,39 +1,34 @@
-#include "mmain.h"
+#include "main.h"
 
 /**
- * cap_string - capitalize all words of a string
- * @str: string
- * Return: `str`
+ * cap_string - a function that capitalizes all words of a string
+ * @n: input string
+ * Return: caps on first letter of a separator
  */
-
-char *cap_string(char *str)
+char *cap_string(char *n)
 {
-	int i, c;
-	int trigger;
-	char nots[] = ",;.!?(){}\n\t\" ";
+	int i, x;
+	int cap = 32;
+	int separators[] = {',', ';', '.', '?', '"',
+			    '(', ')', '{', '}', ' ', '\n', '\t'};
 
-	for (i = 0, trigger = 0; str[i] != '\0'; i++)
+	for (i = 0; n[i] != '\0'; i++)
 	{
-		if (str[0] > 96 && str[0] < 123)
-			trigger = 1;
-		for (c = 0; nots[c] != '\0'; c++)
+		if (n[i] >= 'a' && n[i] <= 'z')
 		{
-			if (nots[c] == str[i])
-				trigger = 1;
+			n[i] = n[i] - cap;
 		}
 
-		if (trigger)
+		cap = 0;
+
+		for (x = 0; x <= 12; x++)
 		{
-			if (str[i] > 96 && str[i] < 123)
+			if (n[i] == separators[x])
 			{
-				str[i] -= 32;
-				trigger = 0;
+				x = 12;
+				cap = 32;
 			}
-			else if (str[i] > 64 && str[i] < 91)
-				trigger = 0;
-			else if (str[i] > 47 && str[i] < 58)
-				trigger = 0;
 		}
 	}
-	return (str);
+	return (n);
 }
